@@ -3,7 +3,7 @@
 # how to run main.py
 1. Run main.py
     ```bash
-    uvicorn main:main --host 0.0.0.0 --port 8000 --reload
+    uvicorn main:main --reload
 
 ## Setup and Installation
 1. Clone this repository to your local machine.
