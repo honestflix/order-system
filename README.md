@@ -14,12 +14,15 @@
 2. Set up a virtual environment and activate it.
 
     ```bash
-    py -m venv .venv
-    Source .venv\Scripts\activate
+    apt install python3.10-venv
+    python3 -m venv my-env
+    . my-env/bin/activate
+    
 3. Install the required dependencies:
 
    ```bash
-   pip install -r requirements.txt
+   python3 -m pip install -e .
+   python3 -m pip install -r requirements.txt
 
 # Running the App
 1. To run the Flask app with Gunicorn in a development environment:
