@@ -1,4 +1,4 @@
-# Order system
+# Order system ☕
 
 # how to run main.py
 1. Run main.py
@@ -25,19 +25,10 @@
    python3 -m pip install -r requirements.txt
 
 # Running the App
-1. To run the Flask app with Gunicorn in a development environment:
+To run the Flask app with Gunicorn in a development environment:
     ```bash
-    gunicorn app:app --workers=4 --bind=0.0.0.0:8000
-2. To run the Gradio interface, run the following command:
-    ```bash
-    python gradio_interface.py
-# Running the Tests
-1. To run all tests:
-    ```bash
-    pytest
-2. To run a specific test file:
-    ```bash
-    pytest test_api.py
+    gunicorn main:main --workers=4 --bind=0.0.0.0:8000
+
 # Development
 This project is designed to be deployed on platforms like Heroku, AWS, or Google Cloud Platform. The deployment_config.py file provides an example setup for deploying with Gunicorn.
 
