@@ -46,8 +46,9 @@
 - Clients and baristas interact with different FastAPI servers on separate ports.
 
 # Running the App
-To run the Flask app with Gunicorn in a development environment:
-    ```bash
+- To run the Flask app with Gunicorn in a development    environment:
+    
+    ```sh
     gunicorn main:main --workers=4 --bind=0.0.0.0:8000
 
 # Development
