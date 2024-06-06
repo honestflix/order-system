@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException, Request
 from pydantic import BaseModel
-from typing import List
+from typing import List, Set
 from collections import deque
 import asyncio
 from starlette.middleware.base import BaseHTTPMiddleware
@@ -11,14 +11,15 @@ class Order(BaseModel):
     client_id: str
     quantity: int
 
+
 orders = deque()  
+valid_client_ids: Set[str] = set()  
 baristas = 10
 clients_per_group = 150
-brewing_time = 45  # seconds
+brewing_time = 45 
 delusional_ddoser_ip = "192.168.1.100"
 order_lock = asyncio.Lock()
 
-# Routes
 @app.post("/order/")
 async def place_order(order: Order):
     if order.quantity <= 0:
@@ -26,6 +27,7 @@ async def place_order(order: Order):
     
     async with order_lock:
         orders.append(order)
+        valid_client_ids.add(order.client_id)
 
     return {"message": f"Order received for {order.quantity} americano(s)"}
 
@@ -43,8 +45,17 @@ async def start_preparing_orders():
 
 @app.post("/finish/")
 async def finish_preparing_orders(finished_orders: List[Order]):
+    errors = []
     for order in finished_orders:
-        print(f"Order for client {order.client_id} is ready")
+        if order.client_id in valid_client_ids:
+            print(f"Order for client {order.client_id} is ready")
+            valid_client_ids.remove(order.client_id)
+        else:
+            errors.append(f"No order found for client {order.client_id}")
+
+    if errors:
+        raise HTTPException(status_code=400, detail="; ".join(errors))
+
     return {"message": "Orders finished"}
 
 class DDoSProtectionMiddleware(BaseHTTPMiddleware):
