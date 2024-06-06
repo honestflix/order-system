@@ -27,12 +27,12 @@
 ### Docker Setup
 1. **Build the Docker image:**
     ```sh
-    docker build -t caffeinated-odyssey .
+    docker build -t order-system .
     ```
 
 2. **Run the Docker container:**
     ```sh
-    docker run -d -p 8000:8000 caffeinated-odyssey
+    docker run -d -p 8000:8000 order-system
     ```
 
 ## API Endpoints
